@@ -7,10 +7,10 @@ folder <- getwd()
 ####################################################
 
 # Create list of all .csv files in folder
-file_list <- list.files(path=paste0(folder, '/Crimson Sentiment Files'), pattern="*.csv") 
+file_list <- list.files(path=paste0(folder, '/Sentiment Files'), pattern="*.csv") 
 
 # Read in each .csv file in file_list and create a data frame with the 
-all_files <- do.call(rbind.fill, lapply(file_list, function(x) read.csv(paste0(paste0(folder, '/Crimson Sentiment Files'), '/',x), stringsAsFactors = FALSE)))
+all_files <- do.call(rbind.fill, lapply(file_list, function(x) read.csv(paste0(paste0(folder, '/Sentiment Files'), '/',x), stringsAsFactors = FALSE)))
 
 # Replace column headers with dev-friendly column headers
 colnames(all_files) <- c('celebrityid', 'fullname', 'sentiment_date', 'basic_positive_sentiment', 'basic_neutral_sentiment', 'basic_negative_sentiment')
@@ -54,4 +54,4 @@ negative_thresholding_alg_signals <- merge(all_files, negative_thresholding_alg_
 negative_thresholding_pos_signals <- subset(negative_thresholding_alg_signals, negative_thresholding_alg_signals$signals == 1)
 
 # save final data frame
-write.csv(negative_thresholding_pos_signals, 'negative_thresholding_pos_signals.csv')
+write.csv(negative_thresholding_pos_signals, paste0(folder, '/Data Output/negative_thresholding_pos_signals.csv'))
